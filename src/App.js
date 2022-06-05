@@ -1,12 +1,13 @@
 //jshint esversion:9
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [cardNumber, setCardNumber] = useState('#### #### #### ####');
+  const [cardNumber, setCardNumber] = useState('################');
   const [cardName, setCardName] = useState('AD SOYAD');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [month, setMonth] = useState('MM');
+  const [year, setYear] = useState('YY');
 
   const handleSelectMonth = (e) => {
     setMonth(e.target.value);
@@ -14,6 +15,27 @@ function App() {
   const handleSelectYear = (e) => {
     setYear(e.target.value);
   };
+
+  const formatcardNumber = (cardNumber) => {
+    cardNumber.toString();
+    let part1 = cardNumber.substr(0, 4);
+    let part2 = cardNumber.substr(4, 4);
+    let part3 = cardNumber.substr(8, 4);
+    let part4 = cardNumber.substr(12, 4);
+    let allParts = [part1, part2, part3, part4];
+
+    return allParts.join(' ');
+  };
+
+  useEffect(() => {
+    if (cardNumber === '') {
+      setCardNumber('################');
+    }
+    if (cvv === '') {
+      setCvv('***');
+    }
+  }, [cardNumber, cvv]);
+
   return (
     <div className='App w-screen h-screen flex flex-col items-center justify-center bg-[#D3E9FC]'>
       <div className='relative'>
@@ -38,18 +60,22 @@ function App() {
               <label for='' className='hidden'>
                 Card Number
               </label>
-              <input type='text' id='' value={cardNumber} readonly className='outline-none w-full bg-transparent text-center text-2xl' />
+              <input type='text' id='' value={formatcardNumber(cardNumber)} readonly className='outline-none w-full bg-transparent text-center text-2xl' />
             </div>
 
             <div className='w-full flex flex-row justify-between'>
               <div className='w-full flex flex-col'>
-                <label for=''>Card Name</label>
-                <input type='text' id='' value='Daniel Castillo Guindos' readonly className='outline-none bg-transparent' />
+                <label>
+                  <span className='text-xs mb-1'>Card Holder</span>
+                  <input type='text' id='' value={cardName} readonly className='outline-none bg-transparent uppercase' />
+                </label>
               </div>
 
               <div className='w-1/4 flex flex-col'>
-                <label for=''>Expires</label>
-                <input type='text' id='' value='12/34' readonly className='outline-none bg-transparent' />
+                <label>
+                  <span className='text-xs mb-1'>Expires</span>
+                  <input type='text' id='' value={`${month}/${year.toString().substr(-2)}`} readonly className='outline-none bg-transparent' />
+                </label>
               </div>
             </div>
           </div>
@@ -68,7 +94,7 @@ function App() {
                 <input
                   type='text'
                   id=''
-                  value='123'
+                  value={cvv}
                   readonly
                   className='outline-none rounded text-black w-full h-8 text-right'
                   style={{ background: 'repeating-linear-gradient(45deg, #ededed, #ededed 5px, #f9f9f9 5px, #f9f9f9 10px)' }}
@@ -82,20 +108,20 @@ function App() {
           </div>
         </div>
 
-        <form className='flex flex-col w-[500px] pt-40 px-7 pb-7 bg-white border-2 border-red-500'>
+        <form className='flex flex-col w-[500px] pt-40 px-7 pb-7 bg-white space-y-4 border-2 border-red-500'>
           <label className='flex flex-col'>
-            <span>Card Number</span>
-            <input type='number' className='border-2 border-gray-300 p-2' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+            <span className='text-xs mb-1'>Card Number</span>
+            <input type='number' className='border-2 border-gray-300 p-2 rounded-md' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
           </label>
           <label className='flex flex-col'>
-            <span>Card Name</span>
-            <input type='text' value={cardName} onChange={(e) => setCardName(e.target.value)} />
+            <span className='text-xs mb-1'>Card Name</span>
+            <input type='text' value={cardName} onChange={(e) => setCardName(e.target.value)} className='border-2 border-gray-300 p-2 h-10 rounded-md' />
           </label>
-          <div className='flex'>
-            <label className='flex flex-col'>
-              <span>Expiration Date</span>
-              <select value={month} onChange={handleSelectMonth}>
-                <option value='Month'>Month</option>
+          <div className='flex justify-between'>
+            <label className='flex flex-col justify-between'>
+              <span className='text-xs mb-1'>Expiration Date</span>
+              <select value={month} onChange={handleSelectMonth} className='border-2 border-gray-300 p-2 h-10 rounded-md'>
+                <option value=''>Month</option>
                 <option value='01'>01</option>
                 <option value='02'>02</option>
                 <option value='03'>03</option>
@@ -111,10 +137,9 @@ function App() {
               </select>
             </label>
 
-            <label className='flex flex-col'>
-              <span>...</span>
-              <select value={year} onChange={handleSelectYear}>
-                <option value='Year'>Year</option>
+            <label className='flex'>
+              <select value={year} onChange={handleSelectYear} className='border-2 border-gray-300 p-2 h-10 self-end rounded-md'>
+                <option value=''>Year</option>
                 <option value='2022'>2022</option>
                 <option value='2023'>2023</option>
                 <option value='2024'>2024</option>
@@ -126,6 +151,11 @@ function App() {
                 <option value='2030'>2030</option>
                 <option value='2031'>2031</option>
               </select>
+            </label>
+
+            <label className='flex flex-col justify-between'>
+              <span className='text-xs mb-1'>CVV</span>
+              <input type='number' className='border-2 border-gray-300 p-2 h-10 rounded-md' value={cvv} onChange={(e) => setCvv(e.target.value)} />
             </label>
           </div>
         </form>
