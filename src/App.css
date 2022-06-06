@@ -1,12 +1,9 @@
-#card:hover {
+.rotateCard {
   transform: rotateY(180deg);
 }
 
-#card > div:nth-child(1) {
-  transition-delay: 150ms;
-}
-
-#card:hover > div:nth-child(1) {
+.turned {
   opacity: 0;
   z-index: -1;
+  transition-delay: 150ms;
 }
