@@ -31,12 +31,14 @@ export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumb
         <div className='w-full flex flex-row justify-between'>
           <div className='w-full flex flex-col'>
             <span className='text-xs mb-1'>Card Holder</span>
-            <p className='uppercase'>{cardName}</p>
+            <p data-testid='card-layout-name' className='uppercase'>
+              {cardName}
+            </p>
           </div>
 
           <div className='w-1/4 flex flex-col'>
             <span className='text-xs mb-1'>Expires</span>
-            <p>{`${month}/${year.toString().slice(-2)}`}</p>
+            <p data-testid='expire-month-year'>{`${month}/${year.toString().slice(-2)}`}</p>
           </div>
         </div>
       </div>
@@ -49,13 +51,13 @@ export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumb
         <div className='px-6 flex flex-col gap-6 justify-center'>
           <div className='flex flex-col items-end'>
             <span>CVV</span>
-            <p id='card-cvv-background' className='rounded text-black w-full h-8 text-right'>
+            <p data-testid='card-layout-cvv' id='card-cvv-background' className='rounded text-black w-full h-8 text-right'>
               {cvv}
             </p>
           </div>
 
-          <div className='flex justify-start items-center'>
-            <img src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' alt='' className='w-12' />
+          <div className='flex justify-end items-center'>
+            <img src={bankImg} alt='Bank logo' className='w-16' />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ function App() {
   const [bankImg, seBankImg] = useState(visaImg);
   const [cardNumber, setCardNumber] = useState('################');
   const [hiddenCardNumber, setHiddenCardNumber] = useState('################');
-  const [cardName, setCardName] = useState('AD SOYAD');
+  const [cardName, setCardName] = useState('Ad Soyad');
   const [cvv, setCvv] = useState('');
   const [month, setMonth] = useState('MM');
   const [selectedMonth, setSelectedMonth] = useState(false);
@@ -68,10 +68,18 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Card number =>', cardNumber);
+    setCardNumber('');
+    setCardName('Ad Soyad');
+    setSelectedMonth(false);
+    setSelectedYear(false);
+    setMonth('MM');
+    setYear('YY');
+    setCvv('');
+
+    /* console.log('Card number =>', cardNumber);
     console.log('Card name =>', cardName);
     console.log('Card expiration date =>', month + '/' + year);
-    console.log('Card CVV =>', cvv);
+    console.log('Card CVV =>', cvv); */
   };
 
   useEffect(() => {
@@ -142,49 +150,111 @@ function App() {
               <label className='text-xs mb-1' htmlFor='selectMonth'>
                 Expiration Date
               </label>
-              <select id='selectMonth' onChange={handleSelectMonth} className='border-2 border-gray-300 p-2 h-10 rounded-md focus:outline-none focus:border-blue-500' required>
+              <select
+                data-testid='select-month-element'
+                id='selectMonth'
+                value={'Month'}
+                onChange={handleSelectMonth}
+                className='border-2 border-gray-300 p-2 h-10 rounded-md focus:outline-none focus:border-blue-500'
+                required
+              >
                 {selectedMonth ? (
-                  <option value='' disabled>
+                  <option data-testid='select-month-option' value='' disabled>
                     Month
                   </option>
                 ) : (
-                  <option value=''>Month</option>
+                  <option data-testid='select-month-option' value=''>
+                    Month
+                  </option>
                 )}
-                <option value='01'>01</option>
-                <option value='02'>02</option>
-                <option value='03'>03</option>
-                <option value='04'>04</option>
-                <option value='05'>05</option>
-                <option value='06'>06</option>
-                <option value='07'>07</option>
-                <option value='08'>08</option>
-                <option value='09'>09</option>
-                <option value='10'>10</option>
-                <option value='11'>11</option>
-                <option value='12'>12</option>
+                <option data-testid='select-month-option' value='01'>
+                  01
+                </option>
+                <option data-testid='select-month-option' value='02'>
+                  02
+                </option>
+                <option data-testid='select-month-option' value='03'>
+                  03
+                </option>
+                <option data-testid='select-month-option' value='04'>
+                  04
+                </option>
+                <option data-testid='select-month-option' value='05'>
+                  05
+                </option>
+                <option data-testid='select-month-option' value='06'>
+                  06
+                </option>
+                <option data-testid='select-month-option' value='07'>
+                  07
+                </option>
+                <option data-testid='select-month-option' value='08'>
+                  08
+                </option>
+                <option data-testid='select-month-option' value='09'>
+                  09
+                </option>
+                <option data-testid='select-month-option' value='10'>
+                  10
+                </option>
+                <option data-testid='select-month-option' value='11'>
+                  11
+                </option>
+                <option data-testid='select-month-option' value='12'>
+                  12
+                </option>
               </select>
             </div>
 
             <div className='flex'>
               <label htmlFor='selectYear'></label>
-              <select id='selectYear' value={year} onChange={handleSelectYear} className='border-2 border-gray-300 p-2 h-10 self-end rounded-md focus:outline-none focus:border-blue-500' required>
+              <select
+                data-testid='select-year-element'
+                id='selectYear'
+                value={'Year'}
+                onChange={handleSelectYear}
+                className='border-2 border-gray-300 p-2 h-10 self-end rounded-md focus:outline-none focus:border-blue-500'
+                required
+              >
                 {selectedYear ? (
-                  <option value='' disabled>
+                  <option data-testid='select-year-option' value='' disabled>
                     Year
                   </option>
                 ) : (
-                  <option value=''>Year</option>
+                  <option data-testid='select-year-option' value=''>
+                    Year
+                  </option>
                 )}
-                <option value='2022'>2022</option>
-                <option value='2023'>2023</option>
-                <option value='2024'>2024</option>
-                <option value='2025'>2025</option>
-                <option value='2026'>2026</option>
-                <option value='2027'>2027</option>
-                <option value='2028'>2028</option>
-                <option value='2029'>2029</option>
-                <option value='2030'>2030</option>
-                <option value='2031'>2031</option>
+                <option data-testid='select-year-option' value='2022'>
+                  2022
+                </option>
+                <option data-testid='select-year-option' value='2023'>
+                  2023
+                </option>
+                <option data-testid='select-year-option' value='2024'>
+                  2024
+                </option>
+                <option data-testid='select-year-option' value='2025'>
+                  2025
+                </option>
+                <option data-testid='select-year-option' value='2026'>
+                  2026
+                </option>
+                <option data-testid='select-year-option' value='2027'>
+                  2027
+                </option>
+                <option data-testid='select-year-option' value='2028'>
+                  2028
+                </option>
+                <option data-testid='select-year-option' value='2029'>
+                  2029
+                </option>
+                <option data-testid='select-year-option' value='2030'>
+                  2030
+                </option>
+                <option data-testid='select-year-option' value='2031'>
+                  2031
+                </option>
               </select>
             </div>
 
