@@ -1,4 +1,5 @@
 //jshint esversion:9
+import { CardLayout } from './components/CardLayout';
 import { useEffect, useState } from 'react';
 import './App.css';
 let visaImg = 'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png';
@@ -8,6 +9,7 @@ let discoverImg = 'https://raw.githubusercontent.com/muhammederdem/credit-card-f
 function App() {
   const [bankImg, seBankImg] = useState(visaImg);
   const [cardNumber, setCardNumber] = useState('################');
+  const [hiddenCardNumber, setHiddenCardNumber] = useState('################');
   const [cardName, setCardName] = useState('AD SOYAD');
   const [cvv, setCvv] = useState('');
   const [month, setMonth] = useState('MM');
@@ -18,8 +20,17 @@ function App() {
 
   const handleCardNumber = (cardNumber) => {
     cardNumber.toString();
-
+    let hideNum = [];
+    for (let i = 0; i < cardNumber.length; i++) {
+      if (i > 3 && i < 12) {
+        hideNum.push('*');
+      } else {
+        hideNum.push(cardNumber[i]);
+      }
+    }
     setCardNumber(cardNumber.substr(0, 16));
+    /* console.log('hideNum split =>', hideNum.join('')); */
+    setHiddenCardNumber(hideNum.join(''));
   };
   const handleSelectMonth = (e) => {
     if (!selectedMonth) {
@@ -40,18 +51,14 @@ function App() {
     setCvv(cvvNumber.substr(0, 5));
   };
 
-  const formatcardNumber = (cardNumber) => {
-    cardNumber.toString();
+  const formatCardNumber = (cardNumber) => {
     let part1 = cardNumber.substr(0, 4);
     let part2 = cardNumber.substr(4, 4);
     let part3 = cardNumber.substr(8, 4);
     let part4 = cardNumber.substr(12, 4);
     let allParts = [];
-    if (cardNumber.indexOf('################') === -1) {
-      allParts = [part1, part2.replace(part2, '****'), part3.replace(part3, '****'), part4];
-    } else {
-      allParts = [part1, part2, part3, part4];
-    }
+
+    allParts = [part1, part2, part3, part4];
 
     return allParts.join(' ');
   };
@@ -70,7 +77,7 @@ function App() {
 
   useEffect(() => {
     if (cardNumber === '') {
-      setCardNumber('################');
+      setHiddenCardNumber('################');
     }
     if (cvv === '') {
       setCvv('***');
@@ -90,62 +97,17 @@ function App() {
   return (
     <div className='App w-screen h-screen flex flex-col items-center justify-center bg-[#D3E9FC]'>
       <div className='relative' id='main-container'>
-        <div
-          id='card'
-          className={`absolute left-0 right-0 mx-auto -top-32 w-96 h-60 rounded-2xl font-mono text-white overflow-hidden cursor-pointer transition-all duration-500  ${
-            flipCard && 'rotateCard'
-          } shadow-2xl`}
-        >
-          {/* <!-- Front content --> */}
-          <div
-            className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center gap-6 p-6 bg-gradient-to-tr  from-[#710d09] to-gray-900 transition-all duration-100 delay-200 z-20 ${
-              flipCard && 'turned'
-            }`}
-          >
-            <div className='flex justify-between items-center'>
-              <img src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png' alt='Smart card' className='w-12' />
-
-              <img src={bankImg} alt='Bank logo' className='w-16' />
-            </div>
-
-            {/* <!-- CardNumber --> */}
-            <div>
-              <span className='hidden'>Card Number</span>
-              <p className='w-full text-center text-2xl'>{formatcardNumber(cardNumber)}</p>
-            </div>
-
-            <div className='w-full flex flex-row justify-between'>
-              <div className='w-full flex flex-col'>
-                <span className='text-xs mb-1'>Card Holder</span>
-                <p className='uppercase'>{cardName}</p>
-              </div>
-
-              <div className='w-1/4 flex flex-col'>
-                <span className='text-xs mb-1'>Expires</span>
-                <p>{`${month}/${year.toString().slice(-2)}`}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Back content --> */}
-          <div id='card-back-content' className={`absolute top-0 left-0 w-full h-full flex flex-col gap-3 justify-center bg-gradient-to-tr to-[#710d09] from-gray-900 transition-all z-10 `}>
-            {/* <!-- Band --> */}
-            <div className='w-full h-12 bg-black'></div>
-
-            <div className='px-6 flex flex-col gap-6 justify-center'>
-              <div className='flex flex-col items-end'>
-                <span>CVV</span>
-                <p id='card-cvv-background' className='rounded text-black w-full h-8 text-right'>
-                  {cvv}
-                </p>
-              </div>
-
-              <div className='flex justify-start items-center'>
-                <img src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' alt='' className='w-12' />
-              </div>
-            </div>
-          </div>
-        </div>
+        <CardLayout
+          flipCard={flipCard}
+          bankImg={bankImg}
+          formatCardNumber={formatCardNumber}
+          hiddenCardNumber={hiddenCardNumber}
+          cardNumber={cardNumber}
+          cardName={cardName}
+          month={month}
+          cvv={cvv}
+          year={year}
+        />
 
         <form className='flex flex-col w-[500px] pt-40 px-7 pb-7 bg-white space-y-4 rounded-md shadow-2xl' onSubmit={handleSubmit}>
           <label className='flex flex-col'>
