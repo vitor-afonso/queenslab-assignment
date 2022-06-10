@@ -29,7 +29,6 @@ function App() {
       }
     }
     setCardNumber(cardNumber.substr(0, 16));
-    /* console.log('hideNum split =>', hideNum.join('')); */
     setHiddenCardNumber(hideNum.join(''));
   };
   const handleSelectMonth = (e) => {
@@ -110,30 +109,40 @@ function App() {
         />
 
         <form className='flex flex-col w-[500px] pt-40 px-7 pb-7 bg-white space-y-4 rounded-md shadow-2xl' onSubmit={handleSubmit}>
-          <label className='flex flex-col'>
-            <span className='text-xs mb-1'>Card Number</span>
+          <div className='flex flex-col'>
+            <label className='text-xs mb-1' htmlFor='cardNumberInput'>
+              Card Number
+            </label>
             <input
               type='number'
+              id='cardNumberInput'
+              data-testid='cardNumber'
               className='border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500'
               value={cardNumber}
               onChange={(e) => handleCardNumber(e.target.value)}
               required
             />
-          </label>
-          <label className='flex flex-col'>
-            <span className='text-xs mb-1'>Card Name</span>
+          </div>
+
+          <div className='flex flex-col'>
+            <label className='text-xs mb-1' htmlFor='cardNameInput'>
+              Card Name
+            </label>
             <input
               type='text'
+              id='cardNameInput'
               value={cardName}
               onChange={(e) => setCardName(e.target.value)}
               className='border-2 border-gray-300 p-2 h-10 rounded-md uppercase focus:outline-none focus:border-blue-500'
               required
             />
-          </label>
+          </div>
           <div className='flex justify-between'>
-            <label className='flex flex-col justify-between'>
-              <span className='text-xs mb-1'>Expiration Date</span>
-              <select onChange={handleSelectMonth} className='border-2 border-gray-300 p-2 h-10 rounded-md focus:outline-none focus:border-blue-500' required>
+            <div className='flex flex-col justify-between'>
+              <label className='text-xs mb-1' htmlFor='selectMonth'>
+                Expiration Date
+              </label>
+              <select id='selectMonth' onChange={handleSelectMonth} className='border-2 border-gray-300 p-2 h-10 rounded-md focus:outline-none focus:border-blue-500' required>
                 {selectedMonth ? (
                   <option value='' disabled>
                     Month
@@ -154,10 +163,11 @@ function App() {
                 <option value='11'>11</option>
                 <option value='12'>12</option>
               </select>
-            </label>
+            </div>
 
-            <label className='flex'>
-              <select value={year} onChange={handleSelectYear} className='border-2 border-gray-300 p-2 h-10 self-end rounded-md focus:outline-none focus:border-blue-500' required>
+            <div className='flex'>
+              <label htmlFor='selectYear'></label>
+              <select id='selectYear' value={year} onChange={handleSelectYear} className='border-2 border-gray-300 p-2 h-10 self-end rounded-md focus:outline-none focus:border-blue-500' required>
                 {selectedYear ? (
                   <option value='' disabled>
                     Year
@@ -176,10 +186,12 @@ function App() {
                 <option value='2030'>2030</option>
                 <option value='2031'>2031</option>
               </select>
-            </label>
+            </div>
 
-            <label className='flex flex-col justify-between'>
-              <span className='text-xs mb-1'>CVV</span>
+            <div className='flex flex-col justify-between'>
+              <label className='text-xs mb-1' htmlFor='card-cvv'>
+                CVV
+              </label>
               <input
                 type='number'
                 id='card-cvv'
@@ -190,7 +202,7 @@ function App() {
                 onBlur={handleflipCard}
                 required
               />
-            </label>
+            </div>
           </div>
           <button type='submit' className='bg-blue-700 text-white font-semibold p-2 h-10 rounded-md'>
             Submit

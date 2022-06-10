@@ -23,7 +23,9 @@ export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumb
         {/* <!-- CardNumber --> */}
         <div>
           <span className='hidden'>Card Number</span>
-          <p className='w-full text-center text-2xl'>{formatCardNumber(hiddenCardNumber)}</p>
+          <p data-testid='card-layout-number' className='w-full text-center text-2xl'>
+            {formatCardNumber(hiddenCardNumber)}
+          </p>
         </div>
 
         <div className='w-full flex flex-row justify-between'>
