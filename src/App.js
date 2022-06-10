@@ -76,10 +76,10 @@ function App() {
     setYear('YY');
     setCvv('');
 
-    /* console.log('Card number =>', cardNumber);
+    console.log('Card number =>', cardNumber);
     console.log('Card name =>', cardName);
     console.log('Card expiration date =>', month + '/' + year);
-    console.log('Card CVV =>', cvv); */
+    console.log('Card CVV =>', cvv);
   };
 
   useEffect(() => {
@@ -104,17 +104,7 @@ function App() {
   return (
     <div className='App w-screen h-screen flex flex-col items-center justify-center bg-[#D3E9FC]'>
       <div className='relative' id='main-container'>
-        <CardLayout
-          flipCard={flipCard}
-          bankImg={bankImg}
-          formatCardNumber={formatCardNumber}
-          hiddenCardNumber={hiddenCardNumber}
-          cardNumber={cardNumber}
-          cardName={cardName}
-          month={month}
-          cvv={cvv}
-          year={year}
-        />
+        <CardLayout flipCard={flipCard} bankImg={bankImg} formatCardNumber={formatCardNumber} hiddenCardNumber={hiddenCardNumber} cardName={cardName} month={month} cvv={cvv} year={year} />
 
         <form className='flex flex-col w-[500px] pt-40 px-7 pb-7 bg-white space-y-4 rounded-md shadow-2xl' onSubmit={handleSubmit}>
           <div className='flex flex-col'>

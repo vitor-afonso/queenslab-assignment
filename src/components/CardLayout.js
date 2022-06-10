@@ -1,6 +1,6 @@
 //jshint esversion:9
 
-export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumber, cardNumber, cardName, month, cvv, year }) => {
+export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumber, cardName, month, cvv, year }) => {
   return (
     <div
       id='card'
@@ -30,7 +30,7 @@ export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumb
 
         <div className='w-full flex flex-row justify-between'>
           <div className='w-full flex flex-col'>
-            <span className='text-xs mb-1'>Card Name</span>
+            <span className='text-xs mb-1'>Card Holder</span>
             <p data-testid='card-layout-name' className='uppercase'>
               {cardName}
             </p>
