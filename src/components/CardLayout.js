@@ -30,7 +30,7 @@ export const CardLayout = ({ flipCard, bankImg, formatCardNumber, hiddenCardNumb
 
         <div className='w-full flex flex-row justify-between'>
           <div className='w-full flex flex-col'>
-            <span className='text-xs mb-1'>Card Holder</span>
+            <span className='text-xs mb-1'>Card Name</span>
             <p data-testid='card-layout-name' className='uppercase'>
               {cardName}
             </p>
